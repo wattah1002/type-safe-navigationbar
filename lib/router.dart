@@ -7,12 +7,14 @@ part 'router.g.dart';
 
 @TypedShellRoute<MyShellRouteData>(
   routes: <TypedRoute<RouteData>>[
-    TypedGoRoute<AlphaRouteData>(path: '/alpha'),
-    TypedGoRoute<BetaRouteData>(
-      path: '/beta',
+    TypedGoRoute<AlphaRouteData>(
+      path: '/alpha',
       routes: <TypedGoRoute<AlphaDetailsRouteData>>[
         TypedGoRoute<AlphaDetailsRouteData>(path: 'details')
       ],
+    ),
+    TypedGoRoute<BetaRouteData>(
+      path: '/beta',
     ),
   ],
 )

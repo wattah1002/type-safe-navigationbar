@@ -16,16 +16,16 @@ RouteBase get $myShellRouteData => ShellRouteData.$route(
         GoRouteData.$route(
           path: '/alpha',
           factory: $AlphaRouteDataExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: '/beta',
-          factory: $BetaRouteDataExtension._fromState,
           routes: [
             GoRouteData.$route(
               path: 'details',
               factory: $AlphaDetailsRouteDataExtension._fromState,
             ),
           ],
+        ),
+        GoRouteData.$route(
+          path: '/beta',
+          factory: $BetaRouteDataExtension._fromState,
         ),
       ],
     );
@@ -53,11 +53,12 @@ extension $AlphaRouteDataExtension on AlphaRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $BetaRouteDataExtension on BetaRouteData {
-  static BetaRouteData _fromState(GoRouterState state) => const BetaRouteData();
+extension $AlphaDetailsRouteDataExtension on AlphaDetailsRouteData {
+  static AlphaDetailsRouteData _fromState(GoRouterState state) =>
+      const AlphaDetailsRouteData();
 
   String get location => GoRouteData.$location(
-        '/beta',
+        '/alpha/details',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -70,12 +71,11 @@ extension $BetaRouteDataExtension on BetaRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $AlphaDetailsRouteDataExtension on AlphaDetailsRouteData {
-  static AlphaDetailsRouteData _fromState(GoRouterState state) =>
-      const AlphaDetailsRouteData();
+extension $BetaRouteDataExtension on BetaRouteData {
+  static BetaRouteData _fromState(GoRouterState state) => const BetaRouteData();
 
   String get location => GoRouteData.$location(
-        '/beta/details',
+        '/beta',
       );
 
   void go(BuildContext context) => context.go(location);
