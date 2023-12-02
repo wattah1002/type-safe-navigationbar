@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_go_router/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,33 +11,60 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'GoRouter Recipe',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routerConfig: router,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class AlphaPage extends StatelessWidget {
+  const AlphaPage({super.key});
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('Alpha Page'),
+      ),
+      body: Center(
+        child: OutlinedButton(
+          onPressed: () {
+            const AlphaDetailsRouteData().push(context);
+          },
+          child: const Text('View details'),
+        ),
+      ),
+    );
+  }
+}
+
+class AlphaDetailsPage extends StatelessWidget {
+  const AlphaDetailsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Alpha Details Page'),
+      ),
+      body: Container(),
+    );
+  }
+}
+
+class BetaPage extends StatelessWidget {
+  const BetaPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Beta Page'),
       ),
       body: Container(),
     );
