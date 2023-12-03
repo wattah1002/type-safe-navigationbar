@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'router.dart';
+part of 'typed_shell_route_demo.dart';
 
 // **************************************************************************
 // GoRouterGenerator
