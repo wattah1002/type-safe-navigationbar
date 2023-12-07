@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 part 'typed_shell_route_demo.g.dart';
 
+void main() => runApp(const TypedShellRouteDemo());
+
 class TypedShellRouteDemo extends StatelessWidget {
   const TypedShellRouteDemo({super.key});
 

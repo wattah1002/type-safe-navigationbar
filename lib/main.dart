@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_go_router/typed_shell_route_demo.dart';
-import 'package:recipe_go_router/typed_stateful_shell_route_demo.dart';
 
 void main() {
-  runApp(const TypedStatefulShellRouteDemo());
+  runApp(const App());
+}
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
