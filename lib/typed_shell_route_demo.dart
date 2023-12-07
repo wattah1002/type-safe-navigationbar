@@ -43,19 +43,19 @@ class ScaffoldWithNavigation extends StatelessWidget {
     final currentIndex = getCurrentIndex(context);
     return Scaffold(
       body: child,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: currentIndex,
+        destinations: const [
+          NavigationDestination(
             icon: Icon(Icons.home),
             label: 'Alpha',
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.settings),
             label: 'Beta',
           ),
         ],
-        onTap: (int index) {
+        onDestinationSelected: (int index) {
           switch (index) {
             case 0:
               const AlphaRouteData().go(context);
