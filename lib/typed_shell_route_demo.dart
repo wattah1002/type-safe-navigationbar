@@ -75,7 +75,7 @@ class ScaffoldWithNavigation extends StatelessWidget {
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<AlphaRouteData>(
       path: '/alpha',
-      routes: <TypedGoRoute<AlphaDetailsRouteData>>[
+      routes: <TypedRoute<RouteData>>[
         TypedGoRoute<AlphaDetailsRouteData>(path: 'details')
       ],
     ),
