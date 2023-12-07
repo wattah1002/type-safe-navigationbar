@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 part 'typed_stateful_shell_route_demo.g.dart';
 
+void main() => runApp(const TypedStatefulShellRouteDemo());
+
 class TypedStatefulShellRouteDemo extends StatelessWidget {
   const TypedStatefulShellRouteDemo({super.key});
 
@@ -21,25 +23,20 @@ class TypedStatefulShellRouteDemo extends StatelessWidget {
 }
 
 // Router
-final _shellNavigatorAlphaKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellAlpha');
-final _shellNavigatorBetaKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellBeta');
-
 @TypedStatefulShellRoute<MyStatefulShellRouteData>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<BranchAlphaData>(
-      routes: <TypedRoute<RouteData>>[
+      routes: [
         TypedGoRoute<AlphaRouteData>(
           path: '/alpha',
-          routes: <TypedRoute<RouteData>>[
-            TypedGoRoute<AlphaDetailsRouteData>(path: 'details')
+          routes: [
+            TypedGoRoute<AlphaDetailsRouteData>(path: 'details'),
           ],
         ),
       ],
     ),
     TypedStatefulShellBranch<BranchBetaData>(
-      routes: <TypedRoute<RouteData>>[
+      routes: [
         TypedGoRoute<BetaRouteData>(path: '/beta'),
       ],
     ),
@@ -54,36 +51,16 @@ class MyStatefulShellRouteData extends StatefulShellRouteData {
     GoRouterState state,
     StatefulNavigationShell navigationShell,
   ) {
-    return navigationShell;
-  }
-
-  static const String $restorationScopeId = 'restorationScopeId';
-
-  static Widget $navigatorContainerBuilder(
-    BuildContext context,
-    StatefulNavigationShell navigationShell,
-    List<Widget> children,
-  ) {
-    return ScaffoldWithNavigation(
-      navigationShell: navigationShell,
-      children: children,
-    );
+    return ScaffoldWithNavigation(navigationShell: navigationShell);
   }
 }
 
 class BranchAlphaData extends StatefulShellBranchData {
   const BranchAlphaData();
-
-  static final GlobalKey<NavigatorState> $navigatorKey =
-      _shellNavigatorAlphaKey;
-  static const String $restorationScopeId = 'restorationScopeId';
 }
 
 class BranchBetaData extends StatefulShellBranchData {
   const BranchBetaData();
-
-  static final GlobalKey<NavigatorState> $navigatorKey = _shellNavigatorBetaKey;
-  static const String $restorationScopeId = 'restorationScopeId';
 }
 
 class AlphaRouteData extends GoRouteData {
@@ -122,35 +99,33 @@ class BetaRouteData extends GoRouteData {
 class ScaffoldWithNavigation extends StatelessWidget {
   const ScaffoldWithNavigation({
     required this.navigationShell,
-    required this.children,
-    Key? key,
-  }) : super(key: key ?? const ValueKey<String>('ScaffoldWithNavigation'));
+    super.key,
+  });
 
   final StatefulNavigationShell navigationShell;
-  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: navigationShell.currentIndex,
+        destinations: const [
+          NavigationDestination(
             icon: Icon(Icons.home),
             label: 'Alpha',
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.settings),
             label: 'Beta',
           ),
         ],
-        currentIndex: navigationShell.currentIndex,
-        onTap: (index) => _onTap,
+        onDestinationSelected: _goBranch,
       ),
     );
   }
 
-  void _onTap(int index) {
+  void _goBranch(int index) {
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,
@@ -159,8 +134,8 @@ class ScaffoldWithNavigation extends StatelessWidget {
 }
 
 final _router = GoRouter(
-  routes: $appRoutes,
   initialLocation: '/alpha',
+  routes: $appRoutes,
 );
 
 // Typical page
