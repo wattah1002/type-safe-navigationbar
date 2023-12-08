@@ -1,5 +1,9 @@
-# recipe_go_router
+# type-safe-navigationbar
 
 ```dart
-flutter run -t filename
+// TypedShellRoute
+flutter run -t lib/typed_shell_route_demo.dart
+
+// TypedStatefulShellRoute
+flutter run -t lib/typed_stateful_shell_route_demo.dart
 ```
